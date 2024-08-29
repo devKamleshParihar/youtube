@@ -1,6 +1,10 @@
-import { IsString, Matches, MaxLength, MinLength } from "class-validator"
+import { IsEmail, IsString, Matches, MaxLength, MinLength } from "class-validator"
 
 export class CreateUserDTO  {
+    @IsString()
+    @IsEmail()
+    email:string
+
     @IsString()
     @MinLength(4)
     @MaxLength(20)
