@@ -9,7 +9,7 @@ export class UserController {
     // constructor(private)
     @Get()
     GetUser(@Req() req:Request){
-        const user = req.user
+        const user = req.use
         return user+"done"
     }
 }
