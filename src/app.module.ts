@@ -4,7 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './auth/user.entity';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/auth.Guard';
-import { UserModule } from './user/user.module';
+import { MailModule } from './mail/mail.module';
+
 
 
 @Module({
@@ -18,10 +19,12 @@ import { UserModule } from './user/user.module';
     host:'localhost',
     username:'postgres',
     password:'postgres',
-    entities:[User],
+    // entities:[User],
     database:'youtube'
   }),
-    UserModule],
+    MailModule,
+    ],
+  providers: [],
   // providers:[{
   //   provide:APP_GUARD,
   //   useClass:JwtAuthGuard

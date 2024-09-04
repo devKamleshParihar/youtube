@@ -6,18 +6,20 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user.entity';
 import { AuthMiddleware } from './auth.middleware';
 import { JwtAuthGuard } from './auth.Guard';
+import { MailModule } from 'src/mail/mail.module';
 
 
 @Module({
   imports:[
-    
     JwtModule.register({
     secret:'Youtube and auth secret key',
     signOptions:{
       expiresIn:'1h'
     }
   }),
-  TypeOrmModule.forFeature([User]),],
+  TypeOrmModule.forFeature([User]),
+  MailModule
+],
   providers: [AuthService,JwtAuthGuard],
   controllers: [AuthController],
   exports:[AuthService,JwtModule]

@@ -6,10 +6,14 @@ import { UserRepository } from './user.repository';
 import { CreateUserDTO } from './DTO/create.user.dto';
 import * as bcrypt from 'bcrypt'
 import * as crypto from 'crypto'
+import { MailService } from 'src/mail/mail.service';
+
 
 @Injectable()
 export class AuthService {
-    constructor(private JwtService:JwtService ,
+    constructor(
+        private JwtService:JwtService,
+        private MailService:MailService,
         @InjectRepository(User) private UserRepository:UserRepository){}
 
     async Register(CreateUserDTO:CreateUserDTO):Promise<string>{
@@ -76,12 +80,14 @@ export class AuthService {
     
         // Generate OTP
         const otp = await this.generateOTP();
+        
         user.otp = otp;
     
         // Save OTP to user record
         await this.UserRepository.save(user);
     
         // Log OTP (for testing purposes, replace with email service in production)
+        this.MailService.sendOtp(user.email,otp)
         console.log(`Generated OTP for user ${email}: ${otp}`);
       }
     

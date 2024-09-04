@@ -17,7 +17,7 @@ export class AuthMiddleware implements NestMiddleware {
       if(!user || !user.status){
         throw new UnauthorizedException('User is not verified or not found');
       }
-      req.user = user;
+      req['user'] = user;
       next();
       
     } catch (error) {
